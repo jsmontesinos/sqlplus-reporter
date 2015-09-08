@@ -1,6 +1,6 @@
 #!/usr/bin/python
 '''\nSQL Plus Report Generator
-Usage: python makereport.py -i <sql_file>"
+Usage: python makereport.py -i <sql_file>
 Arguments:
  -i, --input      sql input file
  -o, --output	  html output file (report)
@@ -38,10 +38,7 @@ try:
 				      'help',
 				      'title='])
 except getopt.GetoptError as err:
-	usage()
-	sys.exit(2)
-
-if (not os.path.isfile(inputFileName)):
+    logging.error('Parameter error')
 	usage()
 	sys.exit(2)
 
@@ -58,6 +55,10 @@ for opt, arg in options:
 		usage()
 	elif opt == '--title':
 		title = arg
+
+if (not os.path.isfile(inputFileName)):
+	logging.error('Error reading input file')
+	sys.exit(2)
 
 logging.info("Creating reports...")
 
